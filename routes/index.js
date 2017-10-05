@@ -17,14 +17,17 @@ router.get("/register",function(req,res){
 
 //handle Sign Up logic
 router.post("/register",function(req,res){
-   req.body.username
-    req.body.password
+    // req.body.username
+    // req.body.password
     User.register(new User({username:req.body.username}),req.body.password,function(err,user){
        if(err){
+           req.flash("error", err.message);
            console.log(err);
            return res.render('register');
+        
        } else{
            passport.authenticate("local")(req,res,function(){
+              req.flash("success","Welcome to YelpCamp! " + user.username);
               res.redirect("/campgrounds"); 
            });
        }
@@ -45,16 +48,8 @@ router.post("/login",passport.authenticate("local",{successRedirect : "/campgrou
 
 router.get("/logout",function(req,res){
     req.logout();
+    req.flash("success","you are logged out");
     res.redirect("/campgrounds");
 });
-
-//middleware
-
-function isLoggedIn(req,res,next){
-   if(req.isAuthenticated()) {
-       return next();
-   }
-   res.redirect("/login");
-}
 
 module.exports = router;
