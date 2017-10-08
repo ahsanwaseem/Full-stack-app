@@ -20,14 +20,19 @@ router.post("/register",function(req,res){
     // req.body.username
     // req.body.password
     User.register(new User({username:req.body.username}),req.body.password,function(err,user){
-       if(err){
-           req.flash("error", err.message);
-           console.log(err);
-           return res.render('register');
+    //   if(err){
+    //       req.flash("error", err.message);
+    //       console.log(err);
+    //       return res.render('register');
         
-       } else{
+    //   } 
+     if(err){
+      return res.render("register", {"error": err.message});
+    }
+    
+    else{
            passport.authenticate("local")(req,res,function(){
-              req.flash("success","Welcome to YelpCamp! " + user.username);
+              req.flash("success","Welcome to CampStay! " + user.username);
               res.redirect("/campgrounds"); 
            });
        }

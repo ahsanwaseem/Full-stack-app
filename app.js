@@ -17,6 +17,8 @@ var authRoutes = require("./routes/index");
 
 // seedDB();
 
+app.locals.moment = require('moment');
+
 //passport configuration
 
 app.use(flash());
@@ -40,7 +42,7 @@ app.use(function(req,res,next){
    next();
 });
 
-mongoose.connect("mongodb://localhost/yelp-camp");
+mongoose.connect("mongodb://localhost/camp-stay");
 
 app.use(bodyParser.urlencoded({extended:true}));
 
@@ -54,5 +56,5 @@ app.use("/campgrounds/:id/comments",commentRoutes);
 app.use("/campgrounds",campgroundRoutes);
 
 app.listen(process.env.PORT,process.env.IP,function(){
- console.log("server is ready");   
+ console.log("server is ready " + process.env.PORT);   
 });
