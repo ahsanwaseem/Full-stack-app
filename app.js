@@ -42,14 +42,15 @@ app.use(function(req,res,next){
    next();
 });
 
-mongoose.connect("mongodb://localhost/camp-stay");
+// mongoose.connect("mongodb://localhost/camp-stay");
+mongoose.connect("mongodb://ahsan:Plorx786786@ds117965.mlab.com:17965/campstay");
+// mongodb://ahsan:Plorx786786@ds117965.mlab.com:17965/campstay
 
 app.use(bodyParser.urlencoded({extended:true}));
 
 app.set("view engine","ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
-
 
 app.use("/",authRoutes);
 app.use("/campgrounds/:id/comments",commentRoutes);
