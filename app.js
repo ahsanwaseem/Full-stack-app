@@ -42,9 +42,13 @@ app.use(function(req,res,next){
    next();
 });
 
-// mongoose.connect("mongodb://localhost/camp-stay");
+console.log(process.env.DATABASEURL);
+
+// mongoose.connect("mongodb://localhost/yelp-camp");
 mongoose.connect("mongodb://ahsan:Plorx786786@ds117965.mlab.com:17965/campstay");
-// mongodb://ahsan:Plorx786786@ds117965.mlab.com:17965/campstay
+
+
+
 
 app.use(bodyParser.urlencoded({extended:true}));
 
