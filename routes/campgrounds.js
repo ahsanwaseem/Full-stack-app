@@ -5,7 +5,19 @@ var middleware = require("../middleware");
 var geocoder = require('geocoder');
 
 router.get("/",function(req,res){
-
+    // eval(require("locus"));
+    if(req.query.search){
+        const regex = new RegExp(escapeRegExp(req.query.search),'gi');
+      campground.find({name:regex},function(err,allcampgrounds ){
+        console.log(req.user);
+       if(err){
+           console.log(err);
+      } 
+    else{
+            res.render("campgrounds/index",{campgrounds:allcampgrounds,page:'campgrounds',currentUser:req.user}); 
+      }
+    });
+}else{
     campground.find({},function(err,allcampgrounds ){
         console.log(req.user);
        if(err){
@@ -15,6 +27,7 @@ router.get("/",function(req,res){
             res.render("campgrounds/index",{campgrounds:allcampgrounds,page:'campgrounds',currentUser:req.user}); 
       }
     });
+}
 });
 
 router.post("/",middleware.isLoggedIn,function(req,res){
@@ -107,6 +120,10 @@ router.delete("/:id",middleware.checkUserAuthorisation,function(req,res){
       }
    }); 
 });
+
+function escapeRegExp(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+}
 
 
 module.exports = router;

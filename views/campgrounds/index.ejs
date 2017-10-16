@@ -6,6 +6,12 @@
    <p>View our hand-picked campgrounds from all over the world.</p>
    <p><a class="btn btn-primary btn-sm" href="/campgrounds/new">Add New Campground</a>
    <a class="btn btn-primary btn-sm" href="/">Home</a></p>
+    <form action="/campgrounds" method="GET" class="form-inline">
+       <div class="form-group">
+           <input class="form-control" type="text" name="search" placeholder="campground search...">
+           <input class="btn btn-default" type="submit" value="Search">
+       </div>
+   </form>
    </div>
 </header>
 <div class="row text-center" style="display:flex; flex-wrap:wrap;">
